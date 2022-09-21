@@ -1,68 +1,88 @@
-import { BurgerMenu, CartIcon, ProfilePicPlaceHolder } from "@assets/svgs";
-import { motion } from "framer-motion";
-type NavigationProps = {
-  username: String;
-};
-export const Navigation = ({ username }: NavigationProps) => {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1 },
-    hover: { scale: 1.1 },
-  };
+import { SocialLogo } from "@assets/svgs";
+import { ReactNode, useState } from "react";
+import { menuData, subMenu } from "../json/menuData";
+export const Navigation = () => {
+  const [selectedId, setSelectedId] = useState(1);
   return (
-    <>
-      <motion.nav
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="hidden md:flex lg:gap-12 md:gap-5 t-14 font-lato font-medium text-lightBlack"
+    <div className="flex max-w-[300px] fixed h-full text-white">
+      <div className="bg-darkGrey p-2">
+        {menuData.map((item) => {
+          return (
+            <Menu
+              key={item.id}
+              {...item}
+              setSelectedId={setSelectedId}
+              selectedId={selectedId}
+            />
+          );
+        })}
+      </div>
+      <div className="bg-lightGrey">
+        {subMenu.map((subMenuItem) => {
+          return <SubMenu key={subMenuItem.title} {...subMenuItem} />;
+        })}
+      </div>
+    </div>
+  );
+};
+export const Menu = ({
+  title,
+  setSelectedId,
+  selectedId,
+  id,
+}: {
+  title: ReactNode;
+  setSelectedId: Function;
+  selectedId: number;
+  id: number;
+}) => {
+  return (
+    <div
+      onClick={() => setSelectedId(id)}
+      className="relative p-2 cursor-pointer"
+    >
+      {title}
+      {selectedId === id && (
+        <div className="absolute bg-mainRed h-full -left-2 top-0 w-2"></div>
+      )}
+    </div>
+  );
+};
+
+export const SubMenu = ({
+  title,
+  subOfSub,
+}: {
+  title: string;
+  subOfSub: Array<string>;
+}) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="">
+      <ul
+        className={`${
+          open ? "bg-mainRed" : ""
+        } cursor-pointer px-8 py-4 gap-2 flex items-center`}
+        onClick={() => setOpen(!open)}
       >
-        <motion.a
-          variants={item}
-          whileHover={{ scale: 1.2 }}
-          className="cursor-pointer"
-        >
-          PRODUCTS
-        </motion.a>
-        <motion.a
-          variants={item}
-          whileHover={{ scale: 1.2 }}
-          className="cursor-pointer"
-        >
-          BRANDS
-        </motion.a>
-        <motion.div
-          variants={item}
-          whileHover={{ scale: 1.2 }}
-          className="flex items-center"
-        >
-          <ProfilePicPlaceHolder />
-          <a className="cursor-pointer px-2">HELLO, {username.toUpperCase()}</a>
-        </motion.div>
-        <motion.div
-          variants={item}
-          whileHover={{ scale: 1.2 }}
-          className="flex items-center"
-        >
-          <div className="cart relative">
-            <CartIcon />
-          </div>
-          <a className="cursor-pointer px-2">CART</a>
-        </motion.div>
-      </motion.nav>
-      <button className="md:hidden">
-        <BurgerMenu />
-      </button>
-    </>
+        <SocialLogo />
+
+        <div>{title.toUpperCase()}</div>
+        <div className="absolute right-0 px-2 text-xl font-semibold text-black">
+          {open ? "-" : "+"}
+        </div>
+      </ul>
+      {open &&
+        subOfSub.map((subOfSubItem) => {
+          return (
+            <li
+              className="px-8 py-2 cursor-pointer hover:bg-mainRed"
+              key={subOfSubItem}
+            >
+              {subOfSubItem.charAt(0).toUpperCase() + subOfSubItem.slice(1)}
+            </li>
+          );
+        })}
+    </div>
   );
 };

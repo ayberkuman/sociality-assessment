@@ -1,44 +1,65 @@
-import { AddButton } from "@assets/svgs";
-import { motion } from "framer-motion";
-import Image, { StaticImageData } from "next/image";
+import { AddButton, CartIcon } from "@assets/svgs";
+import Image from "next/image";
+import { useMemo } from "react";
+import { formattedDate, colorOfStatus, socialMediaChannel } from "../helpers";
+import { InteractionButton, OptionButton } from "./Buttons";
+import { ImageWithFallback } from "./ImageWithFallback";
 
 type CardProps = {
-  brandName: String;
-  typeOfDrink: String;
-  price: number;
-  productImage: StaticImageData;
+  status: number;
+  published_at: string;
+  account: {
+    channel: string;
+  };
+  entry: {
+    image: Array<string>;
+  };
 };
 
-export const Card = ({
-  brandName,
-  typeOfDrink,
-  price,
-  productImage,
-}: CardProps) => {
+export const Card = ({ status, account, published_at, entry }: CardProps) => {
+  const memoizedDate = useMemo(
+    () => formattedDate(published_at),
+    [published_at]
+  );
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
-      whileHover={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)" }}
-      className="w-full cursor-pointer"
-    >
-      <div className="flex justify-center py-[19px] px-[32px] bg-cardBgGray">
-        <Image src={productImage} layout="intrinsic" alt="product image" />
+    <div className="flex max-w-[350px] border-[1px] rounded-lg m-auto">
+      <div
+        className={`${colorOfStatus(
+          status
+        )} min-w-[30px] rounded-l-lg grid place-items-center text-white font-bold`}
+      >
+        {socialMediaChannel(account.channel)}
       </div>
-      <div className="t-14 flex flex-col justify-around p-2.5 gap-2 shadow-md">
-        <div className="flex justify-between">
-          <div className="t-14 font-bold text-lightBlack">
-            {brandName.toUpperCase()}
+      <div className="p-4">
+        <div className="flex justify-between items-center p-1 text-grey">
+          <div className="">{memoizedDate}</div>
+          <div className="flex gap-4">
+            <OptionButton />
+            <OptionButton />
+            <OptionButton />
           </div>
-          <div className="text-[#6B6B6B]">€{price}</div>
         </div>
-        <div className="flex justify-between">
-          <div className="text-textGray t-14">{typeOfDrink.toUpperCase()}</div>
-          <button className="bg-cardBgGray hover:scale-125 leading-[1px] rounded t-34">
-            <AddButton />
-          </button>
+        <div className="p-2 text-grey font-semibold">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
+          aspernatur.
+        </div>
+        <div className="">
+          <ImageWithFallback
+            alt="post-image"
+            src={entry.image[0]}
+            width={400}
+            height={400}
+          />
+        </div>
+        <div className="p-2 flex">
+          {Array(4)
+            .fill(true)
+            .map((_, i) => (
+              <InteractionButton value={0} key={i} />
+            ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

@@ -1,5 +1,4 @@
 import { SocialLogo, WhiteLogo } from "@assets/svgs";
-import { FooterData } from "src/constants/FooterData";
 
 export const Footer = () => {
   return (
@@ -8,17 +7,7 @@ export const Footer = () => {
         <div className="p-4">
           <WhiteLogo />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 text-white">
-          {FooterData.map((title) => {
-            return (
-              <FooterLinks
-                {...title}
-                subtitle={title.subtitle}
-                key={title.id}
-              />
-            );
-          })}
-        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 text-white"></div>
         <div className="p-3 gap-3 flex">
           <div>
             <SocialLogo />

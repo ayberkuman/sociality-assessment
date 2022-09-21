@@ -1,25 +1,17 @@
-import { Catalogue } from "@components/Catalogue";
-import { Footer } from "@components/Footer";
-import { Header } from "@components/Header";
-import { ProductDetail } from "@components/ProductDetail";
-import Head from "next/head";
+import { Navigation } from "@components/Navigation";
+import { Timeline } from "@components/Timeline";
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
+  const { data, error } = useSWR("/api/staticdata", fetcher);
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
   return (
-    <div>
-      <Head>
-        <title>Lexir Frontend Assessment!</title>
-      </Head>
-      <main>
-        <Header />
-        <section className="flex flex-col md:flex-row justify-between p-9 max-w-[1280px] m-auto">
-          <ProductDetail category={["gin", "vodka"]} />
-          <Catalogue />
-        </section>
-        <footer className="bg-lightBlack mt-4">
-          <Footer />
-        </footer>
-      </main>
-    </div>
+    <main className="">
+      <Navigation />
+      <Timeline data={data.posts_by_date} />
+    </main>
   );
 }
