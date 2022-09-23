@@ -2,8 +2,10 @@ import { SocialLogo } from "@assets/svgs";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useState } from "react";
 import { menuData, subMenu } from "../json/menuData";
+
 export const Navigation = () => {
   const [selectedId, setSelectedId] = useState(1);
+
   return (
     <div className="flex max-w-[300px] fixed h-full text-white">
       <div className="bg-darkGrey p-2">
@@ -26,6 +28,7 @@ export const Navigation = () => {
     </div>
   );
 };
+
 export const Menu = ({
   title,
   setSelectedId,
