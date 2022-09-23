@@ -1,10 +1,11 @@
-import { AddButton, CartIcon, LocationPin } from "@assets/svgs";
+import { CartIcon, LocationPin } from "@assets/svgs";
+import { motion } from "framer-motion";
 
 export const OptionButton = () => {
   return (
-    <button className="">
+    <motion.button whileHover={{ scale: 1.2 }}>
       <CartIcon />
-    </button>
+    </motion.button>
   );
 };
 

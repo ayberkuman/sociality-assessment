@@ -31,7 +31,9 @@ export const formattedDate = (date) => {
   const hours = formatted.getHours();
   const minutes = formatted.getMinutes();
 
-  return `${day} ${monthName} ${year} - ${hours}:${minutes}`;
+  return `${day} ${monthName} ${year} - ${hours < 10 ? "0" + hours : hours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  }`;
 };
 const months = [
   "January",

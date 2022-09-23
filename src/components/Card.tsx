@@ -1,5 +1,4 @@
-import { AddButton, CartIcon } from "@assets/svgs";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { formattedDate, colorOfStatus, socialMediaChannel } from "../helpers";
 import { InteractionButton, OptionButton } from "./Buttons";
@@ -44,15 +43,15 @@ export const Card = ({ status, account, published_at, entry }: CardProps) => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
           aspernatur.
         </div>
-        <div className="">
+        <motion.div whileHover={{ scale: 1.05 }}>
           <ImageWithFallback
             alt="post-image"
             src={entry.image[0]}
-            width={400}
-            height={400}
+            width={300}
+            height={300}
           />
-        </div>
-        <div className="p-2 flex">
+        </motion.div>
+        <div className="py-2 flex">
           {Array(4)
             .fill(true)
             .map((_, i) => (

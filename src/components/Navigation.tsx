@@ -1,4 +1,5 @@
 import { SocialLogo } from "@assets/svgs";
+import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useState } from "react";
 import { menuData, subMenu } from "../json/menuData";
 export const Navigation = () => {
@@ -37,15 +38,20 @@ export const Menu = ({
   id: number;
 }) => {
   return (
-    <div
+    <motion.div
       onClick={() => setSelectedId(id)}
-      className="relative p-2 cursor-pointer"
+      className={`relative p-2 py-3 cursor-pointer ${
+        selectedId !== id && "opacity-50"
+      }`}
     >
       {title}
       {selectedId === id && (
-        <div className="absolute bg-mainRed h-full -left-2 top-0 w-2"></div>
+        <motion.div
+          layoutId="selected"
+          className="absolute bg-mainRed rounded-r-xl h-full -left-2 top-0 w-2"
+        ></motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
@@ -57,9 +63,10 @@ export const SubMenu = ({
   subOfSub: Array<string>;
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="">
-      <ul
+      <motion.ul
         className={`${
           open ? "bg-mainRed" : ""
         } cursor-pointer px-8 py-4 gap-2 flex items-center`}
@@ -71,18 +78,24 @@ export const SubMenu = ({
         <div className="absolute right-0 px-2 text-xl font-semibold text-black">
           {open ? "-" : "+"}
         </div>
-      </ul>
-      {open &&
-        subOfSub.map((subOfSubItem) => {
-          return (
-            <li
-              className="px-8 py-2 cursor-pointer hover:bg-mainRed"
-              key={subOfSubItem}
-            >
-              {subOfSubItem.charAt(0).toUpperCase() + subOfSubItem.slice(1)}
-            </li>
-          );
-        })}
+      </motion.ul>
+      <AnimatePresence>
+        {open &&
+          subOfSub.map((subOfSubItem) => {
+            return (
+              <motion.li
+                initial={{ opacity: 0, y: -20, scale: 0.5 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.5 }}
+                whileHover={{ color: "#F55661" }}
+                className="px-8 py-2 cursor-pointer"
+                key={subOfSubItem}
+              >
+                {subOfSubItem.charAt(0).toUpperCase() + subOfSubItem.slice(1)}
+              </motion.li>
+            );
+          })}
+      </AnimatePresence>
     </div>
   );
 };
