@@ -14,7 +14,7 @@ type TimelineProps = {
 export const Timeline = ({ data }: TimelineProps) => {
   const [days, setDays] = useState<any>(Object.keys(data));
   return (
-    <div className="ml-[255px] p-6 cursor-default">
+    <div className="ml-[250px] p-6 cursor-default">
       <Info />
       {days.map((day: any) => {
         return <OneDayInTimeline key={day} day={day} data={data} />;

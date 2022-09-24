@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useMemo } from "react";
 import { formattedDate, colorOfStatus, socialMediaChannel } from "../helpers";
 import { InteractionButton, OptionButton } from "./Buttons";
@@ -14,6 +14,19 @@ type CardProps = {
     image: Array<string>;
   };
 };
+const cardVariants: Variants = {
+  offscreen: {
+    y: 300,
+  },
+  onscreen: {
+    y: 50,
+    transition: {
+      type: "spring",
+      bounce: 0.4,
+      duration: 0.8,
+    },
+  },
+};
 
 export const Card = ({ status, account, published_at, entry }: CardProps) => {
   const memoizedDate = useMemo(
@@ -22,7 +35,13 @@ export const Card = ({ status, account, published_at, entry }: CardProps) => {
   );
 
   return (
-    <div className="flex max-w-[350px] border-[1px] rounded-lg m-auto">
+    <motion.div
+      layoutId="card"
+      variants={cardVariants}
+      initial="offscreen"
+      whileInView="onscreen"
+      className="flex max-w-[350px]  border-[1px] rounded-lg m-auto"
+    >
       <div
         className={`${colorOfStatus(
           status
@@ -59,6 +78,6 @@ export const Card = ({ status, account, published_at, entry }: CardProps) => {
             ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

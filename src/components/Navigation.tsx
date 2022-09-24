@@ -20,10 +20,8 @@ export const Navigation = () => {
           );
         })}
       </div>
-      <div className="bg-lightGrey">
-        {subMenu.map((subMenuItem) => {
-          return <SubMenu key={subMenuItem.title} {...subMenuItem} />;
-        })}
+      <div className="bg-lightGrey min-w-[150px]">
+        <Submenu />
       </div>
     </div>
   );
@@ -58,47 +56,69 @@ export const Menu = ({
   );
 };
 
-export const SubMenu = ({
-  title,
-  subOfSub,
-}: {
-  title: string;
-  subOfSub: Array<string>;
-}) => {
-  const [open, setOpen] = useState(false);
+export const Submenu = () => {
+  const [expanded, setExpanded] = useState<false | number>(0);
 
   return (
-    <div className="">
-      <motion.ul
-        className={`${
-          open ? "bg-mainRed" : ""
-        } cursor-pointer px-8 py-4 gap-2 flex items-center`}
-        onClick={() => setOpen(!open)}
+    <div className="w-full flex flex-col gap-2 ">
+      {subMenu.map((i, index) => (
+        <Accordion
+          item={i}
+          key={index}
+          i={i.id}
+          expanded={expanded}
+          setExpanded={setExpanded}
+        />
+      ))}
+    </div>
+  );
+};
+
+const Accordion = ({
+  item,
+  i,
+  expanded,
+  setExpanded,
+}: {
+  item: any;
+  i: number;
+  expanded: number | boolean;
+  setExpanded: Function;
+}) => {
+  const isOpen = i === expanded;
+
+  return (
+    <>
+      <motion.header
+        className=" cursor-pointer px-6 py-4 flex gap-2"
+        initial={false}
+        animate={{ backgroundColor: isOpen ? "#F55661" : "" }}
+        onClick={() => setExpanded(isOpen ? false : i)}
       >
         <SocialLogo />
-
-        <div>{title.toUpperCase()}</div>
-        <div className="absolute right-0 px-2 text-xl font-semibold text-black">
-          {open ? "-" : "+"}
-        </div>
-      </motion.ul>
-      <AnimatePresence>
-        {open &&
-          subOfSub.map((subOfSubItem) => {
-            return (
-              <motion.li
-                initial={{ opacity: 0, y: -20, scale: 0.5 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.5 }}
-                whileHover={{ color: "#F55661" }}
-                className="px-8 py-2 cursor-pointer"
-                key={subOfSubItem}
-              >
-                {subOfSubItem.charAt(0).toUpperCase() + subOfSubItem.slice(1)}
-              </motion.li>
-            );
-          })}
+        {item.title.charAt(0).toUpperCase() + item.title.slice(1)}
+      </motion.header>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.section
+            className="overflow-hidden"
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: "auto" },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+          >
+            <li className="origin-top-center flex flex-col gap-2 px-6 ">
+              <li className="hover:text-mainRed cursor-pointer">Compose</li>
+              <li className="hover:text-mainRed cursor-pointer">Feed</li>
+            </li>
+          </motion.section>
+        )}
       </AnimatePresence>
-    </div>
+    </>
   );
 };

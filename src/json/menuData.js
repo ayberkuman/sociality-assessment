@@ -24,10 +24,10 @@ export const menuData = [
 ];
 
 export const subMenu = [
-  { title: "notificatons", subOfSub: ["compose", "feed"] },
-  { title: "summary", subOfSub: ["compose", "feed"] },
-  { title: "publish", subOfSub: ["compose", "feed"] },
-  { title: "engage", subOfSub: ["compose", "feed"] },
-  { title: "listen", subOfSub: ["compose", "feed"] },
-  { title: "report", subOfSub: ["compose", "feed"] },
+  { title: "notificatons", id: 1 },
+  { title: "summary", id: 2 },
+  { title: "publish", id: 3 },
+  { title: "engage", id: 4 },
+  { title: "listen", id: 5 },
+  { title: "report", id: 6 },
 ];
