@@ -1,4 +1,4 @@
-import { SocialLogo } from "@assets/svgs";
+import { SeeLess, SeeMore, SocialLogo } from "@assets/svgs";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useState } from "react";
 import { menuData, subMenu } from "../json/menuData";
@@ -90,13 +90,14 @@ const Accordion = ({
   return (
     <>
       <motion.header
-        className=" cursor-pointer px-6 py-4 flex gap-2"
+        className=" cursor-pointer px-6 py-4 flex gap-2 items-center justify-between"
         initial={false}
         animate={{ backgroundColor: isOpen ? "#F55661" : "" }}
         onClick={() => setExpanded(isOpen ? false : i)}
       >
         <SocialLogo />
         {item.title.charAt(0).toUpperCase() + item.title.slice(1)}
+        <div className="">{isOpen ? <SeeLess /> : <SeeMore />}</div>
       </motion.header>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -112,7 +113,7 @@ const Accordion = ({
             }}
             transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            <li className="origin-top-center flex flex-col gap-2 px-6 ">
+            <li className="origin-top-center bg-darkGrey flex flex-col gap-2 px-6 p-2 ">
               <li className="hover:text-mainRed cursor-pointer">Compose</li>
               <li className="hover:text-mainRed cursor-pointer">Feed</li>
             </li>

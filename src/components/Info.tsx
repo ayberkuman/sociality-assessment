@@ -3,12 +3,12 @@ import { ProfilePicPlaceHolder } from "@assets/svgs";
 export const Info = () => {
   return (
     <header className="flex justify-between items-center">
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-3 flex-wrap">
         <OneInfo status="Published" color="bg-grey" />
         <OneInfo status="Scheduled" color="bg-green" />
         <OneInfo status="Need Approval" color="bg-yellow" />
-        <OneInfo status="Published" color="bg-mainRed" />
-        <OneInfo status="Published" color="bg-blue" />
+        <OneInfo status="Error" color="bg-mainRed" />
+        <OneInfo status="Notes" color="bg-blue" />
       </div>
       <div className="bg-grey grid place-items-center w-10 h-10 rounded-3xl">
         <ProfilePicPlaceHolder />

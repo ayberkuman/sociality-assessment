@@ -8,7 +8,7 @@ type CardProps = {
   status: number;
   published_at: string;
   account: {
-    channel: string;
+    channel: SVGAElement;
   };
   entry: {
     image: Array<string>;

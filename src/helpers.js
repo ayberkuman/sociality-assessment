@@ -1,11 +1,12 @@
+import { Facebook, Instagram, Twitter } from "@assets/svgs";
 export const socialMediaChannel = (status) => {
   switch (status) {
     case "instagrambusiness":
-      return "ig";
+      return <Instagram />;
     case "twitter":
-      return "tw";
+      return <Twitter />;
     case "facebook":
-      return "fb";
+      return <Facebook />;
   }
 };
 export const colorOfStatus = (channel) => {
