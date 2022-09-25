@@ -35,9 +35,9 @@ export const OneDayInTimeline = ({
     <div className="py-6">
       <h1 className="text-2xl text-grey ">{formatted.split("-").shift()}</h1>
       <motion.div
-        initial={{ x: -100, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         transition={{ duration: 1 }}
-        animate={{ x: 0, opacity: 1 }}
+        animate={{ y: 0, opacity: 1 }}
         className="grid justify-center gap-6 py-4 lg:grid-flow-col lg:justify-start"
       >
         {data[day as keyof object].map((post: any, i: number) => {
