@@ -16,10 +16,10 @@ type CardProps = {
 };
 const cardVariants: Variants = {
   offscreen: {
-    y: 300,
+    y: 150,
   },
   onscreen: {
-    y: 50,
+    y: 0,
     transition: {
       bounce: 0.1,
       duration: 0.8,

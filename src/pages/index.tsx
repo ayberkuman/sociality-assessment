@@ -10,7 +10,11 @@ export default function Home() {
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (
-    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.main
+      className="sm:flex sm:flex-row sm:justify-around flex-col "
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <Navigation />
       <Timeline data={data.posts_by_date} />
     </motion.main>

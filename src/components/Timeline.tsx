@@ -14,7 +14,7 @@ type TimelineProps = {
 export const Timeline = ({ data }: TimelineProps) => {
   const [days, setDays] = useState<any>(Object.keys(data));
   return (
-    <div className="ml-[250px] p-6 cursor-default">
+    <div className="flex-grow p-6 cursor-default">
       <Info />
       {days.map((day: any) => {
         return <OneDayInTimeline key={day} day={day} data={data} />;
@@ -32,7 +32,7 @@ export const OneDayInTimeline = ({
 }) => {
   const formatted = formattedDate(day);
   return (
-    <div className="py-6">
+    <div className="py-10">
       <h1 className="text-2xl text-grey ">{formatted.split("-").shift()}</h1>
       <motion.div
         initial={{ y: -100, opacity: 0 }}

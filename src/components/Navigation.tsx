@@ -1,27 +1,40 @@
 import { SeeLess, SeeMore, SocialLogo } from "@assets/svgs";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { ReactNode, useState } from "react";
 import { menuData, subMenu } from "../json/menuData";
+import logo from "../assets/png/sociality-logo.png";
 
 export const Navigation = () => {
   const [selectedId, setSelectedId] = useState(1);
 
   return (
-    <div className="flex max-w-[300px] fixed h-full text-white">
-      <div className="bg-darkGrey p-2">
-        {menuData.map((item) => {
-          return (
-            <Menu
-              key={item.id}
-              {...item}
-              setSelectedId={setSelectedId}
-              selectedId={selectedId}
-            />
-          );
-        })}
+    <div className="flex flex-col bg-darkGrey text-white py-2">
+      <div className="text-center">
+        <Image
+          src={logo}
+          alt="sociality-logo"
+          width={180}
+          height={40}
+          layout="intrinsic"
+        />
       </div>
-      <div className="bg-lightGrey min-w-[150px]">
-        <Submenu />
+      <div className="sm:flex h-full">
+        <div className="bg-darkGrey p-2">
+          {menuData.map((item) => {
+            return (
+              <Menu
+                key={item.id}
+                {...item}
+                setSelectedId={setSelectedId}
+                selectedId={selectedId}
+              />
+            );
+          })}
+        </div>
+        <div className="bg-lightGrey min-w-[150px]">
+          <Submenu />
+        </div>
       </div>
     </div>
   );
@@ -113,10 +126,10 @@ const Accordion = ({
             }}
             transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            <li className="origin-top-center bg-darkGrey flex flex-col gap-2 px-6 p-2 ">
+            <div className="origin-top-center bg-darkGrey flex flex-col gap-2 px-6 p-2 ">
               <li className="hover:text-mainRed cursor-pointer">Compose</li>
               <li className="hover:text-mainRed cursor-pointer">Feed</li>
-            </li>
+            </div>
           </motion.section>
         )}
       </AnimatePresence>

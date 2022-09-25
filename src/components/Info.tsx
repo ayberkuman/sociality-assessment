@@ -1,5 +1,4 @@
 import { ProfilePicPlaceHolder } from "@assets/svgs";
-
 export const Info = () => {
   return (
     <header className="flex justify-between items-center">
@@ -10,7 +9,8 @@ export const Info = () => {
         <OneInfo status="Error" color="bg-mainRed" />
         <OneInfo status="Notes" color="bg-blue" />
       </div>
-      <div className="bg-grey grid place-items-center w-10 h-10 rounded-3xl">
+
+      <div className="bg-grey grid place-items-center w-10 h-10 rounded-3xl cursor-pointer hover:bg-darkGrey">
         <ProfilePicPlaceHolder />
       </div>
     </header>
