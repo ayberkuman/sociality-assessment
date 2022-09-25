@@ -60,7 +60,7 @@ export const Submenu = () => {
   const [expanded, setExpanded] = useState<false | number>(0);
 
   return (
-    <div className="w-full flex flex-col gap-2 ">
+    <div className="w-full flex flex-col ">
       {subMenu.map((i, index) => (
         <Accordion
           item={i}
